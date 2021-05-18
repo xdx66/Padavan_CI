@@ -115,7 +115,7 @@ jobs:
         sed -i "s#https://cdn.jsdelivr.net/gh/Padavan_CI/ssp/trojan#https://cdn.jsdelivr.net/gh/${{ github.repository_owner }}/Padavan_CI/ssp/trojan#g" ./defaults.c
         sed -i "s#https://cdn.jsdelivr.net/gh/Padavan_CI/ssp/v2ray#https://cdn.jsdelivr.net/gh/${{ github.repository_owner }}/Padavan_CI/ssp/v2ray#g" ./defaults.c
     - name: Remove RSSI
-      if: env.Remove_RSSI == 'true'
+      if: env.Remove_RSSI == 'false'
       run: |
         cp -f removeRSSI/ralink.c $WORK_PATH/trunk/user/httpd
         cp -f removeRSSI/Advanced_ACL2g_Content.asp $WORK_PATH/trunk/user/www/n56u_ribbon_fixed
