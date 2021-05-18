@@ -10,7 +10,7 @@ on:
       firmwarever:
         description: 'firmware''s version'
         required: true
-        default: '20210515'
+        default: '20210518'
       rainbowui:
         description: 'whether to apply rainbow ui'
         required: true
