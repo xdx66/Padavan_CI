@@ -36,11 +36,11 @@ on:
         required: true
         default: 'true'
 env:
-  REPOSITORY_URL: https://github.com/chongshengB/rt-n56u.git
+  REPOSITORY_URL: https://github.com/xdx66/rt-n56u.git
   TOOLCHAIN_URL: https://github.com/hanwckf/padavan-toolchain/releases/download/v1.1/mipsel-linux-uclibc.tar.xz
   WORK_PATH: /opt/rt-n56u
   TIME_ZONE: Asia/Shanghai
-  TARGET_NAME: NEWIFI3
+  TARGET_NAME: YK-L1
   #FIRMWARE_VERSION: 20201015
   FIRMWARE_DATEPREFIX: $(date +"%Y%m%d")
   FIRMWARE_AUTHOR: chongshengB
@@ -180,7 +180,7 @@ jobs:
         echo "CONFIG_FIRMWARE_INCLUDE_SOFTETHERVPN_CMD=n" >> .config #SOFTETHERVPN
         #科学相关
         echo "CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS=y" >> .config #SS plus+
-        echo "CONFIG_FIRMWARE_INCLUDE_V2RAY=y" >> .config #集成v2ray执行文件（3.8M左右)，如果不集成，会从网上下载下来执行，不影响正常使用
+        echo "CONFIG_FIRMWARE_INCLUDE_V2RAY=n" >> .config #集成v2ray执行文件（3.8M左右)，如果不集成，会从网上下载下来执行，不影响正常使用
         echo "CONFIG_FIRMWARE_INCLUDE_TROJAN=y" >> .config #集成trojan执行文件(1.1M左右)，如果不集成，会从网上下载下来执行，不影响正常使用
         echo "CONFIG_FIRMWARE_INCLUDE_SSOBFS=n" >> .config # simple-obfs混淆插件
         echo "CONFIG_FIRMWARE_INCLUDE_SSSERVER=n" >> .config #SS server
@@ -200,10 +200,10 @@ jobs:
         #
         echo "CONFIG_FIRMWARE_INCLUDE_SMARTDNS=n" >> .config #smartdns
         echo "CONFIG_FIRMWARE_INCLUDE_SMARTDNSBIN=n" >> .config #smartdns二进制文件
-        echo "CONFIG_FIRMWARE_INCLUDE_ADGUARDHOME=y" >> .config
+        echo "CONFIG_FIRMWARE_INCLUDE_ADGUARDHOME=n" >> .config
         #
-        echo "CONFIG_FIRMWARE_INCLUDE_ALIDDNS=y" >> .config #阿里DDNS
-        echo "CONFIG_FIRMWARE_INCLUDE_ZEROTIER=y" >> .config #zerotier ~1.3M
+        echo "CONFIG_FIRMWARE_INCLUDE_ALIDDNS=n" >> .config #阿里DDNS
+        echo "CONFIG_FIRMWARE_INCLUDE_ZEROTIER=n" >> .config #zerotier ~1.3M
         #
         echo "CONFIG_FIRMWARE_INCLUDE_CADDY=n" >> .config #在线文件管理服务
         echo "CONFIG_FIRMWARE_INCLUDE_CADDYBIN=n" >> .config #集成caddu执行文件，此文件有13M,请注意固件大小。如果不集成，会从网上下载下来执行，不影响正常使用
@@ -255,42 +255,7 @@ jobs:
       with:
         name: Padavan-packages
         path: ${{ env.FIRMWARE }}
-    - name: Upload firmware to cowtransfer
-      if: steps.organize.outputs.status == 'success' && github.event.inputs.uploadcow == 'true'
-      run: |
-        curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 64 --no-progress ${FIRMWARE} 2>&1 | tee cowtransfer.log
-        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
-        echo "COWTRANSFER_URL=$(cat cowtransfer.log | grep -o -E "https?://[a-zA-Z0-9\.\/_&=@$%?~#-]*")" >> $GITHUB_ENV
-    - name: Upload firmware to WeTransfer
-      if: steps.organize.outputs.status == 'success' && github.event.inputs.uploadwet == 'true'
-      run: |
-        curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
-        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
-        echo "WETRANSFER_URL=$(cat wetransfer.log | grep -o -E "https?://[a-zA-Z0-9\.\/_&=@$%?~#-]*")" >> $GITHUB_ENV
-    - name: Remove obsolete firmwares on artifacts
-      uses: c-hive/gha-remove-artifacts@v1.2.0
-      if: steps.organizer.outputs.status == 'success'
-      with:
-        age: '1 day'
-        skip-recent: 5
-    - name: ServerChan Notification
-      uses: emon100/Action-Serverchan@master
-      if: steps.organize.outputs.status == 'success' && github.event.inputs.serverchan == 'true'
-      with:
-        SCKEY: ${{ secrets.SCKEY }}
-        text: ${{ env.TARGET_NAME }}_Build_Completed
-        desp: Congratulations,
-              
-              
-              Your **${{ env.TARGET_NAME }}** padavan firmware build completed!
-              
-              
-              🐮CowTransfer Download Url:${{ env.COWTRANSFER_URL }}
-              
-              
-              Enjoy it🎈🎁!
+
               
               
               
