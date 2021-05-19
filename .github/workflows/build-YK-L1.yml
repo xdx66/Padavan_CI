@@ -1,4 +1,4 @@
-name: Build YK-L1
+name: Build k2_nano
 
 on: 
   workflow_dispatch:
