@@ -1,4 +1,4 @@
-name: Build TinyK2
+name: Build YK-L1
 
 on: 
   workflow_dispatch:
