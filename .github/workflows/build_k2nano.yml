@@ -1,4 +1,4 @@
-name: Build K2_nano
+name: Build DABOO_UFO2
 
 on: 
   workflow_dispatch:
