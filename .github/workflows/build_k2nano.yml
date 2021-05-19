@@ -95,7 +95,7 @@ jobs:
         cp -f originalui/state.js $WORK_PATH/trunk/user/www/n56u_ribbon_fixed
     - name: Copy K2Tiny config
       run: |
-        cp -f tiny/k2_nano.config $WORK_PATH/trunk/configs/templates
+        cp -f tiny/PSG1218_tiny.config $WORK_PATH/trunk/configs/templates
     - name: Custom config
       run: |
         cd $WORK_PATH/trunk
