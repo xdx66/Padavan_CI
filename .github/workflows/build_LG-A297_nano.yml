@@ -87,7 +87,7 @@ jobs:
     - name: Fix htop build
       run: |
         cp -f htop/htop-3.0.2.tar.gz $WORK_PATH/trunk/user/htop
-        cp -f htop/ZeroTierOne-1.6.5.tar.gz $WORK_PATH/trunk/user/zerotier
+        cp -f zerotier/ZeroTierOne-1.6.5.tar.gz $WORK_PATH/trunk/user/zerotier
     - name: Apply mobile compatible
       if: github.event.inputs.rainbowui == 'false' && github.event.inputs.mobileui == 'true'
       run: |
