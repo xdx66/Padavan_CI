@@ -10,7 +10,7 @@ on:
       firmwarever:
         description: 'firmware''s version'
         required: true
-        default: '20210606'
+        default: '20210610'
       rainbowui:
         description: 'whether to apply rainbow ui'
         required: true
@@ -36,7 +36,7 @@ on:
         required: true
         default: 'true'
 env:
-  REPOSITORY_URL: https://github.com/xdx66/rt-n56u.git
+  REPOSITORY_URL: https://github.com/chongshengB/rt-n56u.git
   TOOLCHAIN_URL: https://github.com/hanwckf/padavan-toolchain/releases/download/v1.1/mipsel-linux-uclibc.tar.xz
   WORK_PATH: /opt/rt-n56u
   TIME_ZONE: Asia/Shanghai
@@ -94,6 +94,12 @@ jobs:
         cp -f originalui/main.css $WORK_PATH/trunk/user/www/n56u_ribbon_fixed/bootstrap/css
         cp -f originalui/popup.js $WORK_PATH/trunk/user/www/n56u_ribbon_fixed
         cp -f originalui/state.js $WORK_PATH/trunk/user/www/n56u_ribbon_fixed
+    - name: Copy A-040W-Q configs
+      run: |
+        cp -f a040wq/A-040W-Q_configs.tar.xz $WORK_PATH/trunk
+        cd $WORK_PATH/trunk
+        sudo chmod +x ./A-040W-Q_configs.tar.xz
+        tar -xvf A-040W-Q_configs.tar.xz
 
     - name: Custom config
       run: |
@@ -140,7 +146,7 @@ jobs:
         echo "CONFIG_FIRMWARE_INCLUDE_SOFTETHERVPN_CMD=n" >> .config #SOFTETHERVPN
         #科学相关
         echo "CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS=y" >> .config #SS plus+
-        echo "CONFIG_FIRMWARE_INCLUDE_V2RAY=n" >> .config #集成v2ray执行文件（3.8M左右)，如果不集成，会从网上下载下来执行，不影响正常使用
+        echo "CONFIG_FIRMWARE_INCLUDE_V2RAY=y" >> .config #集成v2ray执行文件（3.8M左右)，如果不集成，会从网上下载下来执行，不影响正常使用
         echo "CONFIG_FIRMWARE_INCLUDE_TROJAN=y" >> .config #集成trojan执行文件(1.1M左右)，如果不集成，会从网上下载下来执行，不影响正常使用
         echo "CONFIG_FIRMWARE_INCLUDE_SSOBFS=y" >> .config # simple-obfs混淆插件
         echo "CONFIG_FIRMWARE_INCLUDE_SSSERVER=y" >> .config #SS server
