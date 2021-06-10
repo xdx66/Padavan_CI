@@ -94,13 +94,12 @@ jobs:
         cp -f originalui/main.css $WORK_PATH/trunk/user/www/n56u_ribbon_fixed/bootstrap/css
         cp -f originalui/popup.js $WORK_PATH/trunk/user/www/n56u_ribbon_fixed
         cp -f originalui/state.js $WORK_PATH/trunk/user/www/n56u_ribbon_fixed
-    - name: Copy A-040W-Q configs
+    - name: Copy LG-A297 configs
       run: |
-        cp -f a040wq/A-040W-Q_configs.tar.xz $WORK_PATH/trunk
+        cp -f LG-A297/LG-A297_configs.tar.xz $WORK_PATH/trunk
         cd $WORK_PATH/trunk
-        sudo chmod +x ./A-040W-Q_configs.tar.xz
-        tar -xvf A-040W-Q_configs.tar.xz
-
+        sudo chmod +x ./LG-A297_configs.tar.xz
+        tar -xvf LG-A297_configs.tar.xz
     - name: Custom config
       run: |
         cd $WORK_PATH/trunk
